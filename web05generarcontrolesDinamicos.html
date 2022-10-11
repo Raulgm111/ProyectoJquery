@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Generar Controles Dinamicos</h1>
+    <input type="range" id="rango" min="1" max="15" value="1" />
+    <script src="js/jquery-3.6.1.min.js"></script>
+    <p id="numero">1</p>
+    <div id="padre"></div>
+    <script>
+        $("#rango").change(function(){
+            var valor =$("#rango").val();
+            $("#numero").html(valor);
+            for(var i=1;i<=valor;i++){
+                var imagen =$("<img>", {
+                "src":"../images/perro2.jpg",
+                "style":"width:150px"
+            });
+                console.log(imagen)
+                imagen.appendTo($("#padre"));
+            }
+            
+        })
+    </script>
+</body>
+</html>
