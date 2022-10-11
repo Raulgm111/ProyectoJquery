@@ -7,9 +7,27 @@
     <title>Document</title>
 </head>
 <body>
+    <h1>Bucle each</h1>
+    <p>Parrafo1</p>
+    <p>Parrafo2</p>
+    <p>Parrafo3</p>
+    <p>Parrafo4</p>
+    <p>Parrafo5</p>
     <script src="js/jquery-3.6.1.min.js"></script>
     <script>
-        
+        $(document).ready(function(){
+            //AL PULSAR SOBRE CUALQUIER <p>
+            //CAMBIAMOS EL COLOR DE CADA UNA DE ELLAS
+            $("p").click(function(){
+                var colores =["blue","green","yellow","fuchsia","red"];
+                //RECORREMOS CADA ETIQUETA DE FORMA INDIVIDUAL
+                $("p").each(function(){
+                    var indice = parseInt(Math.random() * colores.length);
+                    var color = colores[indice];
+                    $(this).css("background-color",color);
+                })
+            })
+        })
     </script>
 </body>
 </html>

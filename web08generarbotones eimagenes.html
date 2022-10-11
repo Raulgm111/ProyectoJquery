@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Controles dinámicos data-key</h1>
+    <input type="range" id="rango" min="1" max="10" value="2"/>
+    <div id="contenedorimagenes"></div>
+    <div id="contenedorbotones"></div>
+    <script src="js/jquery-3.6.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#rango").change(function() {
+                $("#contenedorimagenes").text("");
+                $("#contenedorbotones").text("");
+                var numero = parseInt($(this).val());
+                for (var i = 1; i <= numero; i++){
+                    var boton = $("<button>", {
+                        "text": "Botón " + i
+                        , "data-posicion": i
+                    });
+                    var imagen = $("<img>", {
+                        "src": "../images/perro1.jpg"
+                        , "id": "imagen" + i,
+                        "style":"width:120px"
+                    });
+                    $("#contenedorimagenes").append(imagen);
+                    $("#contenedorbotones").append(boton);
+                    boton.click(function() {
+                        var posicion = $(this).data("posicion");
+                        $("#imagen" + posicion).attr("src", "../images/perro2.jpg");
+                    });
+                    
+                }
+            });
+        });
+    </script>
+</body>
+</html>
