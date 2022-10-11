@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="resultado"></div>
+    <button type="button" id="botonclientes">
+        Cargar clientes
+    </button>
+    <script src="js/jquery-3.6.1.min.js"></script>
+    <script>
+
+         $(document).ready(function(){
+            $("#botonclientes").click(function(){
+                var nom =$("#resultado").val();
+            $.get("documents/ClientesXML.xml", function(data){
+                var html="";
+                var filtro ="NOMBRE:contains("+ nom +")";
+                if($(data).find(filtro).length==0){
+                        html="No existen departamentos en "+nom;
+                    }else{
+                        $(data).find(filtro).each(function(){
+                            html +=$(this).text()+" "
+                        })
+                    }
+                    
+                    $("#resultado").html(html);
+                    
+            })
+                
+            })
+         });
+    </script>
+</body>
+</html>
