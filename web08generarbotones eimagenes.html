@@ -9,30 +9,30 @@
 <body>
     <h1>Controles dinámicos data-key</h1>
     <input type="range" id="rango" min="1" max="10" value="2"/>
-    <div id="contenedorimagenes"></div>
-    <div id="contenedorbotones"></div>
+    <div id="padre"></div>
+    <div id="padre2"></div>
     <script src="js/jquery-3.6.1.min.js"></script>
     <script>
         $(document).ready(function() {
             $("#rango").change(function() {
-                $("#contenedorimagenes").text("");
-                $("#contenedorbotones").text("");
-                var numero = parseInt($(this).val());
-                for (var i = 1; i <= numero; i++){
-                    var boton = $("<button>", {
+                $("#padre").text("");
+                $("#padre2").text("");
+                var valor = parseInt($(this).val());
+                for (var i = 1; i <= valor; i++){
+                    var botones = $("<button>", {
                         "text": "Botón " + i
                         , "data-posicion": i
                     });
-                    var imagen = $("<img>", {
+                    var imagenes = $("<img>", {
                         "src": "../images/perro1.jpg"
-                        , "id": "imagen" + i,
+                        , "id": "imagenes" + i,
                         "style":"width:120px"
                     });
-                    $("#contenedorimagenes").append(imagen);
-                    $("#contenedorbotones").append(boton);
-                    boton.click(function() {
+                    $("#padre2").append(botones);
+                    $("#padre").append(imagenes);
+                    botones.click(function() {
                         var posicion = $(this).data("posicion");
-                        $("#imagen" + posicion).attr("src", "../images/perro2.jpg");
+                        $("#imagenes" + posicion).attr("src", "../images/perro2.jpg");
                     });
                     
                 }
