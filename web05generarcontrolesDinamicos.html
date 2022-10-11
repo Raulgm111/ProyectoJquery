@@ -15,14 +15,20 @@
     <script>
         $("#rango").change(function(){
             var valor =$("#rango").val();
+            $("#padre").text("");
             $("#numero").html(valor);
             for(var i=1;i<=valor;i++){
                 var imagen =$("<img>", {
                 "src":"../images/perro2.jpg",
                 "style":"width:150px"
             });
-                console.log(imagen)
                 imagen.appendTo($("#padre"));
+                imagen.mouseover(function() {
+                        $(this).attr("src", "../images/perro1.jpg");
+                    });
+                    imagen.mouseout(function() {
+                        $(this).attr("src", "../images/perro2.jpg");
+                    });
             }
             
         })

@@ -22,14 +22,13 @@
                 "value":aleatorio
             });
             botones.appendTo($("#padre"));
-            };
             botones.click(function(){
-                var botonS = botones.val();
-                parseInt("#botonS");
+                var botonS = parseInt($(this).val());
                 suma+=botonS;
                 $("#resultado").text(parseInt(suma));
             })
-        })
+            };
+        });
     </script>
 </body>
 </html>
