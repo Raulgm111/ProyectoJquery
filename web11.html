@@ -11,29 +11,65 @@
     <button type="button" id="botonclientes">
         Cargar clientes
     </button>
+    <table id="resultado2" >
+        <thead>
+            <tr>
+                <th>IDCLIENTE</th>
+                <th>NOMBRE</th>
+                <th>DIRECCION</th>
+                <th>EMAIL</th>
+                <th>CODIGOPOSTAL</th>
+                <th>PAGINAWEB</th>
+                <th>IMAGENCLIENTE</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
     <script src="js/jquery-3.6.1.min.js"></script>
     <script>
-
          $(document).ready(function(){
             $("#botonclientes").click(function(){
-                var nom =$("#resultado").val();
-            $.get("documents/ClientesXML.xml", function(data){
-                var html="";
-                var filtro ="NOMBRE:contains("+ nom +")";
-                if($(data).find(filtro).length==0){
-                        html="No existen departamentos en "+nom;
-                    }else{
-                        $(data).find(filtro).each(function(){
-                            html +=$(this).text()+" "
-                        })
-                    }
-                    
-                    $("#resultado").html(html);
-                    
+                console.log("Antes del servicio");
+                $.get("documents/ClientesXML.xml", function(data){
+                    console.log("leyendo");
+                    $(data).find("NOMBRE").each(function(){
+                        var nombre =$(this).text();
+                        var botones = $("<button>", {
+                        "text": nombre
+                    });
+                    $("#resultado").append(botones);
+                    botones.click(function(){
+                            
+                            $.get("documents/ClientesXML.xml", function(data){
+                            $(data).find('CLIENTE[IDCLIENTE="' +++index +'"]').each(function(){
+                            console.log("suwi")
+                            var html="";
+                            html +="<tr>";
+                            var idCli = $(this).attr("IDCLIENTE");
+                            var nombre = $(this).find("NOMBRE").first().text();
+                            var direccion = $(this).find("DIRECCION").first().text();
+                            var email =$(this).find("EMAIL").first().text();
+                            var codPos =$(this).find("CODIGOPOSTAL").first().text();
+                            var pagina =$(this).find("PAGINAWEB").first().text();
+                            var imagen =$(this).find("IMAGENCLIENTE").first().text();
+                            html +="<td>"+ idCli +"</td>";
+                            html +="<td>"+ nombre +"</td>";
+                            html +="<td>"+ direccion +"</td>";
+                            html +="<td>"+ email +"</td>";
+                            html +="<td>"+ codPos +"</td>";
+                            html +="<td>"+ pagina +"</td>";
+                            html +="<td><img src="+ imagen +"></td>";
+                            html +="</tr>";
+                            $("#resultado2 tbody").html(html);
+                        });
+                    })
+                })               
+                    });
+                })
+                console.log("Despues del servicio");
+
             })
-                
-            })
-         });
+        });
     </script>
 </body>
 </html>
