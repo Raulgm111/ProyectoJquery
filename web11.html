@@ -41,7 +41,7 @@
                             $("#resultado").append(botones);
                             botones.click(function () {
                                 $.get("documents/ClientesXML.xml",function (data) {
-                                $(data).find('CLIENTE[IDCLIENTE="' +    ++index +    '"]').each(function () {console.log("suwi");
+                                $(data).find('CLIENTE[IDCLIENTE="' +++index +'"]').each(function () {console.log("suwi");
                                 var html = "";
                                 html += "<tr>";
                                     var idCli =$(this).attr("IDCLIENTE");
