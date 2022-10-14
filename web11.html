@@ -27,48 +27,47 @@
     </table>
     <script src="js/jquery-3.6.1.min.js"></script>
     <script>
-         $(document).ready(function(){
-            $("#botonclientes").click(function(){
+        $(document).ready(function () {
+            $("#botonclientes").click(function () {
                 console.log("Antes del servicio");
-                $.get("documents/ClientesXML.xml", function(data){
+                $.get("documents/ClientesXML.xml", function (data) {
                     console.log("leyendo");
-                    $(data).find("NOMBRE").each(function(){
-                        var nombre =$(this).text();
-                        var botones = $("<button>", {
-                        "text": nombre
-                    });
-                    $("#resultado").append(botones);
-                    botones.click(function(){
-                            
-                            $.get("documents/ClientesXML.xml", function(data){
-                            $(data).find('CLIENTE[IDCLIENTE="' +++index +'"]').each(function(){
-                            console.log("suwi")
-                            var html="";
-                            html +="<tr>";
-                            var idCli = $(this).attr("IDCLIENTE");
-                            var nombre = $(this).find("NOMBRE").first().text();
-                            var direccion = $(this).find("DIRECCION").first().text();
-                            var email =$(this).find("EMAIL").first().text();
-                            var codPos =$(this).find("CODIGOPOSTAL").first().text();
-                            var pagina =$(this).find("PAGINAWEB").first().text();
-                            var imagen =$(this).find("IMAGENCLIENTE").first().text();
-                            html +="<td>"+ idCli +"</td>";
-                            html +="<td>"+ nombre +"</td>";
-                            html +="<td>"+ direccion +"</td>";
-                            html +="<td>"+ email +"</td>";
-                            html +="<td>"+ codPos +"</td>";
-                            html +="<td>"+ pagina +"</td>";
-                            html +="<td><img src="+ imagen +"></td>";
-                            html +="</tr>";
-                            $("#resultado2 tbody").html(html);
+                    $("#resultado").html("");
+                    $(data).find("NOMBRE").each(function (index) {
+                            var nombre = $(this).text();
+                            var botones = $("<button>", {
+                                text: nombre,
+                            });
+                            $("#resultado").append(botones);
+                            botones.click(function () {
+                                $.get("documents/ClientesXML.xml",function (data) {
+                                $(data).find('CLIENTE[IDCLIENTE="' +    ++index +    '"]').each(function () {console.log("suwi");
+                                var html = "";
+                                html += "<tr>";
+                                    var idCli =$(this).attr("IDCLIENTE");
+                                    var nombre = $(this).find("NOMBRE").first().text();
+                                    var direccion = $(this).find("DIRECCION").first().text();
+                                    var email = $(this).find("EMAIL").first().text();
+                                    var codPos = $(this).find("CODIGOPOSTAL").first().text();
+                                    var pagina = $(this).find("PAGINAWEB").first().text();
+                                    var imagen = $(this).find("IMAGENCLIENTE").first() .text();
+                                    html +=    "<td>" +    idCli +    "</td>";
+                                    html +=    "<td>" +    nombre +    "</td>";
+                                    html +=    "<td>" +    direccion +    "</td>";
+                                    html +=    "<td>" +    email +    "</td>";
+                                    html +=    "<td>" +    codPos +    "</td>";
+                                    html +=    "<td>" +    pagina +    "</td>";
+                                    html +=    "<td><img src=" +    imagen +    "></td>";
+                                    html += "</tr>";
+                                    $("#resultado2 tbody").html(html);
+                                            });
+                                    }
+                                );
+                            });
                         });
-                    })
-                })               
-                    });
-                })
+                });
                 console.log("Despues del servicio");
-
-            })
+            });
         });
     </script>
 </body>
