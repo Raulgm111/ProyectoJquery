@@ -44,21 +44,21 @@
                     var html="";
                     $.each(data,function(index,dept){
                         html+="<tr>";
-                        html+="<td id='valorID'>"+dept.numero+"</td>"
+                        html+="<td id='val' data-valor="+dept.numero+">"+dept.numero+"</td>"
                         html+="<td>"+dept.nombre+"</td>"
                         html+="<td>"+dept.localidad+"</td>"
-                        html+="<td>"+"<button id='emple' value='dept.numero' onclick='cargarEmpleados()'>"+"Empleados"+"</button>"+"</td>"
+                        html+="<td>"+"<button id='emple' onclick='cargarEmpleados()'>"+"Empleados"+dept.numero+"</button>"+"</td>"
                         html+="</tr>";
                     });
                     $("#tabladepartamentos tbody").html(html);
                 }
             })
         }
+        
         cargarDepartamentos();
-
         function cargarEmpleados(){
-            var numero=$("#valorID")
-            var request ="api/Empleados/EmpleadosDepartamento/"+20;
+            var numero = $("#val").data("valor");
+            var request ="api/Empleados/EmpleadosDepartamento/"+numero;
             $.ajax({
                 "url":url2+request,
                 "method":"GET",
