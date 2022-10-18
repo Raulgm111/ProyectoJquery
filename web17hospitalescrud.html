@@ -7,6 +7,111 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <table border="1" id="tablahospital">
+        <thead>
+            <tr>
+                <th>IdHospital</th>
+                <th>Nombre</th>
+                <th>Direccion</th>
+                <th>Telefono</th>
+                <th>Camas</th>
+                <th>Editar</th>
+                <th>Eliminar</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <script src="js/jquery-3.6.1.min.js"></script>
+    <script>
+        var url="https://apicrudhospital.azurewebsites.net/";
+
+        function actulizarHospital(inputs, ArrayHospital) {
+                let [idhospital, nombre, direccion, telefono, camas] = inputs;
+
+                var hospitalValor = {
+                    camas: camas.val(),
+                    direccion: direccion.val(),
+                    idhospital: idhospital.val(),
+                    nombre: nombre.val(),
+                    telefono: telefono.val(),
+                };
+
+                $.ajax({
+                    url: url + "/webresources/hospitales/put",
+                    type: "PUT",
+                    contentType: "application/json",
+                    data: JSON.stringify(hospitalValor),
+                    success: function () {
+                        cargarHospital(ArrayHospital);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    },
+                });
+            }
+            function eliminarHospital(idhospital, ArrayHospital) {
+                $.ajax({
+                    url: url + "/webresources/hospitales/delete/" + idhospital,
+                    type: "DELETE",
+                    success: function () {
+                        cargarHospital(ArrayHospital);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    },
+                });
+            }
+
+        function cargarHospital(ArrayHospital){
+            var request="webresources/hospitales";
+            var tr = $("<tr>");
+            var inputs = [];
+            $.ajax({
+              "url":  url+request,
+              "method":"GET",
+              "dataType":"json",
+              success : function (data) {
+                $("#tablahospital tbody").text("");
+                $.each(data,function(index,hospital){
+                    var tr = $("<tr>");
+
+                for (var propiedad in hospital) {
+                    var td = $("<td>");
+                    var input = $("<input>", {
+                        type: "text",
+                        value: hospital[propiedad],
+                        class: "form-control",
+                    });
+                    inputs.push(input);
+                    td.append(input);
+                    tr.append(td);
+                }
+                var Actulizar = $("<td>");
+                var botonActualizar = $("<button>", {
+                    text: "Editar"
+                });
+                var Eliminar = $("<td>");
+                var botonEliminar = $("<button>", {
+                    text: "Eliminar"
+                });
+                Actulizar.append(botonActualizar);
+                Eliminar.append(botonEliminar);    
+                tr.append(Actulizar)
+                tr.append(Eliminar)
+                botonEliminar.click(function () {
+                    eliminarHospital(hospital.idhospital, ArrayHospital);
+                });
+                botonActualizar.click(function () {
+                actulizarHospital(inputs, ArrayHospital);
+                });
+                $("#tablahospital tbody").append(tr);
+                })
+              }
+            })
+        }
+        $(document).ready(function() {
+            cargarHospital();
+        });
+    </script>
 </body>
 </html>
