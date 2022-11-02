@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <div id="content"></div>
+    <div style="text-align:center; margin-top: 40px;" id="personajes">
+        <table id="tablapersonajes" style="border: 1;" class='table table-bordered table-dark'>
+            <thead>
+                <th>Personaje</th>
+                <th>Imagen</th>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+</head>
+<body>
+    <script src="./js/jquery-3.6.1.min.js"></script>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="./js/Global.js"></script>
+    <script>
+     var valorUbi = window.location.search;
+     console.log(valorUbi);
+     const urlParams = new URLSearchParams(valorUbi);
+     var valores = urlParams.get("idserie");
+     function cargarPersonajes(){
+        $("#content").load("./menuPersonajes.html");
+
+             var request = "api/Series/PersonajesSerie/"+valores;
+             $.ajax({
+                 "url":"https://apiseriespersonajes2022.azurewebsites.net/"+request,
+                 "method":"GET",
+                 "dataType":"json",
+                 success: function(data){
+                   $("#tablapersonajes tbody").text("");
+                   $.each(data,function(index,per){
+                       var fila = $("<tr>");
+                       var colNombre = $("<td>"
+                            , { "text": per.nombre});
+                       var columna = $("<td>");
+                       var imagenPersonajes=$("<img>",
+                        {"src":per.imagen,
+                         "style":"width:150px"});
+                        fila.append(colNombre);
+                        columna.append(imagenPersonajes)
+                        fila.append(columna)
+                       $("#tablapersonajes tbody").append(fila);
+                   })
+                 }
+             })
+        }
+
+        $(document).ready(function(){
+            cargarPersonajes();
+        })
+    </script>
+</body>
+</html>

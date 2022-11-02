@@ -13,14 +13,8 @@
     <script src="js/jquery-3.6.1.min.js"></script>
     <script>
         $(document).ready(function(){
-            //AL SELECCIONAR UN ELEMENTO EN EL <option>
-            //MOSTRAMOS LOS DATOS DEL JUGADOR
-            //NO EXISTEN BUSQUEDAS
-            //Y DIBUJAR UNO
                 $("#selectjugadores").change(function(){
-                    //RECUPERAMOS EL INDICE DEL ELEMNTO ELECCIONADO
                     var index =$(this).prop("selectedIndex");
-                    //DEBEMOS ACCEDER DENUEVO AL SERVICIO
                     $.ajax({
                         "url":"documents/jugadores.json",
                         "method":"GET",
@@ -36,12 +30,12 @@
                     })
 
                 })
-            //AL INCIAR, LEEMOS TODOS LOS JUGADORES
-            //Y LOS GUARDAMOS EN EL <select>
+
+                
+
                 $.getJSON("documents/jugadores.json", function(data){
                     $.each(data.jugadores, function(index,jugador){
                         var name=jugador.nombre;
-                        //CREAMOS UN <option> POR CAD JUGADRO
                             var option=$("<option>",{
                                 "text":name
                             });

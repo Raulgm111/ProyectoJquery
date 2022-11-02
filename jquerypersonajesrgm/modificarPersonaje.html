@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div id="content"></div>
+    <div style="text-align:center; margin-top: 40px;" id="series">
+        <h1>Modificar Personaje</h1>
+        <label>Serie: </label>
+            <select id="selectserie">
+
+            </select><br/>
+        <label>Personajes: </label>
+            <select id="selectpersonajes">
+
+            </select><br/>
+        <button class='btn btn-info' id="botonmodificar">Modificar Personaje</button>
+    </div>
+    <script src="./js/jquery-3.6.1.min.js"></script>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="./js/Global.js"></script>
+    <script>
+        $("#content").load("./menuPersonajes.html");
+
+        function cargarSeries(){
+             var request = "api/Series";
+ 
+             $.ajax({
+                 "url":"https://apiseriespersonajes2022.azurewebsites.net/"+request,
+                 "method":"GET",
+                 "dataType":"json",
+                 success: function(data){
+                   $("#selectserie").text("");
+                   $.each(data,function(index,serie){
+                       var optionNombre = $("<option>"
+                        ,{"text":serie.nombre,
+                         "value":serie.idSerie,
+                        "class":'dropdown-item'});
+                       $("#selectserie").append(optionNombre);
+                   })
+                 }
+             })
+        }
+
+        function cargarPersonajes(){
+             var request = "api/Personajes";
+ 
+             $.ajax({
+                 "url":"https://apiseriespersonajes2022.azurewebsites.net/"+request,
+                 "method":"GET",
+                 "dataType":"json",
+                 success: function(data){
+                   $("#selectpersonajes").text("");
+                   $.each(data,function(index,serie){
+                       var optionNombre = $("<option>"
+                        ,{"text":serie.nombre,
+                         "value":serie.idPersonaje,
+                        "class":'dropdown-item'});
+                       $("#selectpersonajes").append(optionNombre);
+                   })
+                 }
+             })
+        }
+
+        $("#botonmodificar").click(function(){
+
+            var selectSerie = parseInt($("#selectserie").val());
+            var selectPersonaje = parseInt($("#selectpersonajes").val());
+
+            var series = new Object();
+
+            series.idApuesta = selectSerie;
+            series.usuario = selectPersonaje;
+
+            var dataJson = JSON.stringify(series);
+
+            var request = "/api/Personajes/"+selectPersonaje+"/"+selectSerie;
+
+                $.ajax({
+                    "url": "https://apiseriespersonajes2022.azurewebsites.net/" + request,
+                    "type": "PUT",
+                    "data": dataJson,
+                    "contentType": "application/json",
+                    success: function(){
+                        console.log("Modificado");
+                        $(location).attr('href', './Home.html');
+                    }
+                });
+            });
+
+        $(document).ready(function(){
+            cargarSeries();
+            cargarPersonajes();
+        })
+    </script>
+</body>
+</html>

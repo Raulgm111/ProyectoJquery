@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div id="content"></div>
+    <div style="text-align:center; margin-top: 40px;" id="series">
+
+    </div>
+    <script src="./js/jquery-3.6.1.min.js"></script>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="./js/Global.js"></script>
+    <script>
+     var valorUbi = window.location.search;
+     console.log(valorUbi);
+     const urlParams = new URLSearchParams(valorUbi);
+     var valores = urlParams.get("idserie");
+     console.log(valores)
+            function cargarSerie(){      
+             var request = "api/Series/"+valores;
+             $.getJSON("https://apiseriespersonajes2022.azurewebsites.net/"+request, function(data){
+                    var imagen=data.imagen;
+                    var nombre=data.nombre;
+                    var puntuacion=data.puntuacion;
+
+                            var nombreSerie=$("<h2>",{
+                                "text":nombre
+                            });
+                            var imagenSerie=$("<img>",{
+                                "src":imagen,
+                                "style":"width:650px"
+                            })
+                            var puntuacionSerie=$("<p>",{
+                                "text":"IMDB: "+puntuacion
+                            })
+                            var botonPersonajes=$("<a>",{
+                                "text":"Personajes",
+                                "class":"btn btn-success",
+                                "href":"./detallesPersonajes.html?idserie="+data.idSerie
+                            })
+                            $("#series").append(imagenSerie);
+                            $("#series").append(nombreSerie);
+                            $("#series").append(puntuacionSerie);
+                            $("#series").append(botonPersonajes);
+                })
+        }
+        $(document).ready(function(){
+            cargarSerie();
+        })
+
+        $("#content").load("./menuPersonajes.html");
+    </script>
+</body>
+</html>
