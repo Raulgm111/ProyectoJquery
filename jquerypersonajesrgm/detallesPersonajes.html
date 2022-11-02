@@ -24,10 +24,14 @@
     <script src="./js/bootstrap.bundle.min.js"></script>
     <script src="./js/Global.js"></script>
     <script>
+    //LE HEMOS PASADO EL PARAMETRO ID POR URL Y LO SELECCIONAMOS
      var valorUbi = window.location.search;
      console.log(valorUbi);
      const urlParams = new URLSearchParams(valorUbi);
      var valores = urlParams.get("idserie");
+
+    //CARGAMOS LOS PERSONAJES EN UNA FUNCION Y HACEMOS UN EACH 
+    //PARA RECORRELO Y MOSTRALO EN LA PANTALLA
      function cargarPersonajes(){
         $("#content").load("./menuPersonajes.html");
 
@@ -55,6 +59,7 @@
              })
         }
 
+        //CAGARMAO SEL COMPONENTE cargarPersonajes() PARA MOSTRALO EN PANTALLA
         $(document).ready(function(){
             cargarPersonajes();
         })

@@ -25,8 +25,11 @@
     <script src="./js/bootstrap.bundle.min.js"></script>
     <script src="./js/Global.js"></script>
     <script>
+        //CARGAMOS EL MENU DE LA PAGINA menuPersonajes.HTML 
         $("#content").load("./menuPersonajes.html");
 
+        //CARGAMOS LAS SERIES EN UNA FUNCION Y HACEMOS UN EACH 
+        //PARA RECORRELO Y MOSTRALO EN EL SELECT
         function cargarSeries(){
              var request = "api/Series";
  
@@ -47,6 +50,8 @@
              })
         }
 
+        //CARGAMOS LOS PERSONAJES EN UNA FUNCION Y HACEMOS UN EACH 
+        //PARA RECORRELO Y MOSTRALO EN EL SELECT
         function cargarPersonajes(){
              var request = "api/Personajes";
  
@@ -67,6 +72,8 @@
              })
         }
 
+        //LLAMAMOS AL BOTON MODIFICAR Y LE INDICMAOS QUE COJA LOS VALORES
+        //DE LOS IDS Y MODIFIQUE LA POSICON DEL PERSONAJE EN OTRA SERIE
         $("#botonmodificar").click(function(){
 
             var selectSerie = parseInt($("#selectserie").val());
@@ -92,7 +99,9 @@
                     }
                 });
             });
-
+        
+            //CAGARMAO SEL COMPONENTE cargarSeries() Y 
+            //cargarPersonajes PARA MOSTRALO EN PANTALLA
         $(document).ready(function(){
             cargarSeries();
             cargarPersonajes();

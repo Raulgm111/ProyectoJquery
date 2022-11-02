@@ -38,6 +38,8 @@
       <script src="./js/jquery-3.6.1.min.jsç"></script>
       <script src="./js/Global.js"></script>
       <script>
+        //CARGAMOS LAS SERIES EN UNA FUNCION Y HACEMOS UN EACH 
+        //PARA RECORRELO Y MOSTRALO EN EL SELECT
     function cargarSeries(){
              var request = "api/Series";
  
@@ -59,6 +61,7 @@
                  }
              })
         }
+        //CAGARMAO SEL COMPONENTE cargarSeries() PARA MOSTRALO EN PANTALLA
         $(document).ready(function(){
             cargarSeries();
         })

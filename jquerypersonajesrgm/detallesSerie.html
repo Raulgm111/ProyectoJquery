@@ -16,11 +16,19 @@
     <script src="./js/bootstrap.bundle.min.js"></script>
     <script src="./js/Global.js"></script>
     <script>
+    
+    //LE HEMOS PASADO EL PARAMETRO ID POR URL Y LO SELECCIONAMOS
      var valorUbi = window.location.search;
      console.log(valorUbi);
      const urlParams = new URLSearchParams(valorUbi);
      var valores = urlParams.get("idserie");
      console.log(valores)
+
+             //CARGAMOS EL MENU DE LA PAGINA menuPersonajes.HTML 
+             $("#content").load("./menuPersonajes.html");
+
+            //CARGAMOS LAS SERIES EN UNA FUNCION Y HACEMOS UN EACH 
+            //PARA RECORRELO Y MOSTRALO EN LA PANTALLA
             function cargarSerie(){      
              var request = "api/Series/"+valores;
              $.getJSON("https://apiseriespersonajes2022.azurewebsites.net/"+request, function(data){
@@ -49,11 +57,12 @@
                             $("#series").append(botonPersonajes);
                 })
         }
+        
+    //CAGARMAO SEL COMPONENTE cargarSerie() PARA MOSTRALO EN PANTALLA
         $(document).ready(function(){
             cargarSerie();
         })
 
-        $("#content").load("./menuPersonajes.html");
     </script>
 </body>
 </html>

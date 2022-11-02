@@ -27,7 +27,11 @@
     <script src="./js/bootstrap.bundle.min.js"></script>
     <script src="./js/Global.js"></script>
     <script>
-            $("#content").load("./menuPersonajes.html");
+        //CARGAMOS EL MENU DE LA PAGINA menuPersonajes.HTML 
+        $("#content").load("./menuPersonajes.html");
+
+        //CARGAMOS LAS SERIES EN UNA FUNCION Y HACEMOS UN EACH 
+        //PARA RECORRELO Y MOSTRALO EN EL SELECT
         function cargarSeries(){
              var request = "api/Series";
  
@@ -47,6 +51,10 @@
                  }
              })
         }
+
+        //LLAMAMOS LA BOTON INSERTAR Y LE INDICMAOS QUE COJA LOS 
+        //IDS DE Y CON UN POST INSERTA LA PERSONAE EN LA SERIE QUE
+        //SELECCIONEMOS
         $(document).ready(function(){
             cargarSeries();
             $("#botonInsertar").click(function () {
